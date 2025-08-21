@@ -19,7 +19,9 @@ from __future__ import annotations
 from collections.abc import Sequence
 import copy
 from functools import partial
+import hashlib
 import logging
+import pickle
 import time
 from typing import Any, Callable
 import warnings
@@ -602,6 +604,9 @@ def _share_fdo_profiles(
 
   compile_options.executable_build_options.fdo_profile = b""
   try:
+    _hash_obj = hashlib.sha256()
+    _hash_obj.update(pickle.dumps([d.id for d in devices.flat]) )
+    device_ids_hash = _hash_obj.digest().hex()
     profile_key = (
         compilation_cache.get_cache_key(
             computation,
@@ -610,6 +615,7 @@ def _share_fdo_profiles(
             backend,
             cache_key_type.IgnoreCallbacks.ALL,
         )
+        + f"_{device_ids_hash}"
         + "_fdo_sync"
     )
   except xc._xla.XlaRuntimeError as ex:
