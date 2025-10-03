@@ -291,6 +291,20 @@ symlink_inputs(
     ],
 )
 
+symlink_inputs(
+    name = "ifrt_dialect",
+    rule = py_library,
+    symlinked_inputs = {"srcs": {
+        "dialects": ["@xla//xla/python/ifrt/ir:ifrt_ops_py_files"],
+    }},
+    deps = [
+        ":core",
+        ":ir",
+        ":mlir",
+        "//jaxlib/mlir/_mlir_libs:_ifrt",
+    ],
+)
+
 symlink_files(
     name = "gpu_files",
     srcs = ["@llvm-project//mlir/python:GPUOpsPyFiles"],

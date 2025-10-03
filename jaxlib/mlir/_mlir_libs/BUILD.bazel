@@ -196,6 +196,7 @@ symlink_inputs(
         ],
     }},
     deps = [
+        ":_ifrt",
         ":_jax_mlir_ext",
         ":_mlir",
     ],
@@ -278,6 +279,31 @@ nanobind_pywrap_extension(
         "@xla//xla/mlir_hlo:CAPI",
     ],
 )
+
+##---------------------------------------------------------------------------##
+# IFRT Extensions
+##---------------------------------------------------------------------------##
+
+nanobind_pywrap_extension(
+    name = "_ifrt",
+    srcs = [
+        "@xla//xla/python/ifrt/ir:ifrt_module.cc",
+    ],
+    copts = COPTS,
+    deps = [
+        "@llvm-project//mlir:CAPIIR",
+        "@llvm-project//mlir:IR",
+        "@llvm-project//mlir:MLIRBindingsPythonNanobindHeaders",
+        "@local_config_python//:headers",
+        "@nanobind",
+        "@xla//xla/hlo/ir:hlo",
+        "@xla//xla/pjrt:status_casters",
+        "@xla//xla/python/ifrt/ir:ifrt_capi",
+        "@xla//xla/python/ifrt/ir:sharding_param",
+        "@xla//xla/python/ifrt/support:sharding_conversions",
+    ],
+)
+
 
 ##---------------------------------------------------------------------------##
 # Shardy Extensions

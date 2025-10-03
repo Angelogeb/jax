@@ -59,6 +59,7 @@ try:
 except ImportError:
   mpmd: Any = None  # type: ignore[no-redef]
 from jaxlib.mlir.dialects import sdy
+from jaxlib.mlir.dialects import ifrt
 
 # Alias that is set up to abstract away the transition from MHLO to StableHLO.
 from jaxlib.mlir.dialects import stablehlo as hlo
