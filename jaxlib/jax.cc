@@ -51,6 +51,7 @@ limitations under the License.
 #include "nanobind/stl/vector.h"  // IWYU pragma: keep
 #include "jaxlib/ffi.h"
 #include "jaxlib/py_client.h"
+#include "jaxlib/py_ifrt_program_interpreter.h"
 #include "jaxlib/py_program.h"
 #include "jaxlib/py_values.h"
 #include "xla/backends/cpu/collectives/cpu_collectives.h"
@@ -606,6 +607,7 @@ NB_MODULE(_jax, m) {
 
   BuildConfigSubmodule(m);
   BuildIfrtProgramsSubmodule(m);
+  BuildIfrtProgramInterpreterSubmodule(m);
   BuildPytreeSubmodule(m);
   BuildGuardSubmodule(m);
   BuildJaxjitSubmodule(m);
